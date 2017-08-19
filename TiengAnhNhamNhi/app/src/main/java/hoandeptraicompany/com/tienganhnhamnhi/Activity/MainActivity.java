@@ -1,6 +1,7 @@
 package hoandeptraicompany.com.tienganhnhamnhi.Activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private List<Button> buttonAnswerMgr;
     private List<EnglishClass> listQuestion;
     private int level;
-    private String answer="";
+    private String answer = "";
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,9 +95,9 @@ public class MainActivity extends AppCompatActivity {
     private void handingAnswerBox(EnglishClass question) {
 
         int lengthAnswer = question.getVietnamese().length();
-        Log.d("length",""+lengthAnswer);
+        Log.d("length", "" + lengthAnswer);
         for (int i = 15; i > (lengthAnswer - 1); i--) {
-            Log.d("length",i+"");
+            Log.d("length", i + "");
             buttonAnswerMgr.get(i).setVisibility(View.GONE);
         }
 
@@ -124,6 +125,17 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+        for (int i = 0; i < 16; i++) {
+            buttonAnswerMgr.get(i).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Button button = (Button) v;
+                    int index = Integer.parseInt(((Button) v).getText().toString());
+                    buttonHintMgr.get(index).setText(button.getText() + "");
+
+                }
+            });
+        }
     }
 
     private void traLoi(View view, int i) {
@@ -132,10 +144,11 @@ public class MainActivity extends AppCompatActivity {
             if (button.getText().toString().trim().equals("") || button.getText() == null) {
                 button.setText(((Button) view).getText().toString());
                 ((Button) view).setText("");
+                button.setHint(i+"");
                 answer = answer + button.getText().toString().trim();
                 Log.d("answer:", answer);
-                if (checkResult(answer)){
-                    Toast.makeText(MainActivity.this,"Bạn dã trả lời đúng",Toast.LENGTH_SHORT).show();
+                if (checkResult(answer)) {
+                    Toast.makeText(MainActivity.this, "Bạn dã trả lời đúng", Toast.LENGTH_SHORT).show();
                     nextQuestion();
 
                 }
@@ -148,13 +161,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void nextQuestion() {
-        answer="";
-        level=level+1;
+        answer = "";
+        level = level + 1;
         SharedPreferences share = getSharedPreferences("state", level);
-        SharedPreferences.Editor edit=share.edit();
-        edit.putInt("level",level);
+        SharedPreferences.Editor edit = share.edit();
+        edit.putInt("level", level);
         edit.commit();
-        for (int i=0;i<16;i++){
+        for (int i = 0; i < 16; i++) {
             buttonHintMgr.get(i).setText("");
             buttonAnswerMgr.get(i).setText("");
             buttonAnswerMgr.get(i).setVisibility(View.VISIBLE);
@@ -162,18 +175,19 @@ public class MainActivity extends AppCompatActivity {
         playGame();
     }
 
-    public  boolean checkResult(String ans){
-        Log.d("answer",ans+"-"+this.listQuestion.get(level).getVietnamese().trim());
-        if (answer.trim().equals(this.listQuestion.get(level).getVietnamese().trim())){
+    public boolean checkResult(String ans) {
+        Log.d("answer", ans + "-" + this.listQuestion.get(level).getVietnamese().trim());
+        if (answer.trim().equals(this.listQuestion.get(level).getVietnamese().trim())) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }
-    public  boolean checkAnswerComplete(String answer){
-        if (answer.trim().length()==this.listQuestion.get(level).getVietnamese().trim().length()){
+
+    public boolean checkAnswerComplete(String answer) {
+        if (answer.trim().length() == this.listQuestion.get(level).getVietnamese().trim().length()) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }
