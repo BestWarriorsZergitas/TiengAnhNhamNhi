@@ -10,51 +10,32 @@
         android:layout_height="?attr/actionBarSize"
         android:orientation="horizontal">
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/cdOpenABox"
+        <ImageView
+            android:id="@+id/btnBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:elevation="3dp"
-            app:cardBackgroundColor="@color/colorWhite">
+            android:src="@drawable/backicon2"
 
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
+            />
 
-                android:text="Mở một ô"
-                android:textColor="#153151"
-
-                />
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/cdShare"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/txtLevel"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:elevation="3dp"
-            app:cardBackgroundColor="@color/colorWhite">
-
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:gravity="center"
-                android:text="Chia sẻ"
-                android:textColor="#153151"
-
-                />
-
-        </android.support.v7.widget.CardView>
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Level 1"
+            android:textColor="@color/colorWhite" />
 
         <TextView
             android:id="@+id/txtCoin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="60dp"
-            android:background="@drawable/coin_icon" />
+            android:layout_gravity="center"
+            android:layout_marginRight="@dimen/dp10"
+            android:text="250 coin"
+            android:textColor="@color/colorWhite" />
 
 
     </LinearLayout>
@@ -62,32 +43,33 @@
     <TextView
         android:id="@+id/txtQuestrion"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginTop="40dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dp40"
+        android:layout_weight="1"
         android:gravity="center"
         android:text="SUGAR UP"
         android:textAllCaps="true"
         android:textColor="@color/colorWhite"
-        android:textSize="50sp"
+        android:textSize="@dimen/sp50"
         android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginTop="50dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="@dimen/dp50"
             android:layout_gravity="center"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btnAnswer1"
-                android:layout_width="45dp"
-
-                android:layout_height="45dp"
+                android:layout_width="@dimen/dp45"
+                android:layout_height="@dimen/dp45"
                 android:layout_gravity="center"
                 android:background="@drawable/tile_hover"
                 android:textAllCaps="true"
@@ -95,50 +77,50 @@
 
             <Button
                 android:id="@+id/btnAnswer2"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="@dimen/dp45"
+                android:layout_height="@dimen/dp45"
                 android:layout_gravity="center"
                 android:background="@drawable/tile_hover" />
 
             <Button
                 android:id="@+id/btnAnswer3"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="@dimen/dp45"
+                android:layout_height="@dimen/dp45"
                 android:layout_gravity="center"
                 android:background="@drawable/tile_hover" />
 
             <Button
                 android:id="@+id/btnAnswer4"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="@dimen/dp45"
+                android:layout_height="@dimen/dp45"
                 android:layout_gravity="center"
                 android:background="@drawable/tile_hover" />
 
             <Button
                 android:id="@+id/btnAnswer5"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="@dimen/dp45"
+                android:layout_height="@dimen/dp45"
                 android:layout_gravity="center"
                 android:background="@drawable/tile_hover" />
 
             <Button
                 android:id="@+id/btnAnswer6"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="@dimen/dp45"
+                android:layout_height="@dimen/dp45"
                 android:layout_gravity="center"
                 android:background="@drawable/tile_hover" />
 
             <Button
                 android:id="@+id/btnAnswer7"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="@dimen/dp45"
+                android:layout_height="@dimen/dp45"
                 android:layout_gravity="center"
                 android:background="@drawable/tile_hover" />
 
             <Button
                 android:id="@+id/btnAnswer8"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="@dimen/dp45"
+                android:layout_height="@dimen/dp45"
                 android:layout_gravity="center"
                 android:background="@drawable/tile_hover" />
 
@@ -146,64 +128,64 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="@dimen/dp50"
             android:layout_gravity="center"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btnAnswer9"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="@dimen/dp45"
+                android:layout_height="@dimen/dp45"
                 android:layout_gravity="center"
                 android:background="@drawable/tile_hover"
                 android:textAllCaps="true" />
 
             <Button
                 android:id="@+id/btnAnswer10"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="@dimen/dp45"
+                android:layout_height="@dimen/dp45"
                 android:layout_gravity="center"
                 android:background="@drawable/tile_hover" />
 
             <Button
                 android:id="@+id/btnAnswer11"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="@dimen/dp45"
+                android:layout_height="@dimen/dp45"
                 android:layout_gravity="center"
                 android:background="@drawable/tile_hover" />
 
             <Button
                 android:id="@+id/btnAnswer12"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="@dimen/dp45"
+                android:layout_height="@dimen/dp45"
                 android:layout_gravity="center"
                 android:background="@drawable/tile_hover" />
 
             <Button
                 android:id="@+id/btnAnswer13"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="@dimen/dp45"
+                android:layout_height="@dimen/dp45"
                 android:layout_gravity="center"
                 android:background="@drawable/tile_hover" />
 
             <Button
                 android:id="@+id/btnAnswer14"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="@dimen/dp45"
+                android:layout_height="@dimen/dp45"
                 android:layout_gravity="center"
                 android:background="@drawable/tile_hover" />
 
             <Button
                 android:id="@+id/btnAnswer15"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="@dimen/dp45"
+                android:layout_height="@dimen/dp45"
                 android:layout_gravity="center"
                 android:background="@drawable/tile_hover" />
 
             <Button
                 android:id="@+id/btnAnswer16"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="@dimen/dp45"
+                android:layout_height="@dimen/dp45"
                 android:layout_gravity="center"
                 android:background="@drawable/tile_hover" />
 
@@ -211,21 +193,53 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp40"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/btnShare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp5"
+            android:src="@drawable/shareicon" />
+
+        <ImageView
+            android:id="@+id/btnOpenABox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp5"
+            android:layout_marginRight="@dimen/dp5"
+            android:src="@drawable/hinticon" />
+
+        <ImageView
+            android:id="@+id/btnHelp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp5"
+            android:src="@drawable/helpicon" />
+
+    </LinearLayout>
+
+    <LinearLayout
+
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginTop="70dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="bottom"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="@dimen/dp50"
             android:layout_gravity="center"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btnHint1"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="@dimen/dp45"
+                android:layout_height="@dimen/dp45"
                 android:layout_gravity="center"
                 android:background="@drawable/tile_hover"
                 android:textAllCaps="true"
@@ -233,8 +247,8 @@
 
             <Button
                 android:id="@+id/btnHint2"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="@dimen/dp45"
+                android:layout_height="@dimen/dp45"
                 android:layout_gravity="center"
                 android:background="@drawable/tile_hover"
                 android:textAllCaps="true"
@@ -242,8 +256,8 @@
 
             <Button
                 android:id="@+id/btnHint3"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="@dimen/dp45"
+                android:layout_height="@dimen/dp45"
                 android:layout_gravity="center"
                 android:background="@drawable/tile_hover"
                 android:textAllCaps="true"
@@ -251,8 +265,8 @@
 
             <Button
                 android:id="@+id/btnHint4"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="@dimen/dp45"
+                android:layout_height="@dimen/dp45"
                 android:layout_gravity="center"
                 android:background="@drawable/tile_hover"
                 android:textAllCaps="true"
@@ -260,8 +274,8 @@
 
             <Button
                 android:id="@+id/btnHint5"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="@dimen/dp45"
+                android:layout_height="@dimen/dp45"
                 android:layout_gravity="center"
                 android:background="@drawable/tile_hover"
                 android:textAllCaps="true"
@@ -269,8 +283,8 @@
 
             <Button
                 android:id="@+id/btnHint6"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="@dimen/dp45"
+                android:layout_height="@dimen/dp45"
                 android:layout_gravity="center"
                 android:background="@drawable/tile_hover"
                 android:textAllCaps="true"
@@ -278,8 +292,8 @@
 
             <Button
                 android:id="@+id/btnHint7"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="@dimen/dp45"
+                android:layout_height="@dimen/dp45"
                 android:layout_gravity="center"
                 android:background="@drawable/tile_hover"
                 android:textAllCaps="true"
@@ -287,8 +301,8 @@
 
             <Button
                 android:id="@+id/btnHint8"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="@dimen/dp45"
+                android:layout_height="@dimen/dp45"
                 android:layout_gravity="center"
                 android:background="@drawable/tile_hover"
                 android:textAllCaps="true"
@@ -298,14 +312,14 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="@dimen/dp50"
             android:layout_gravity="center"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btnHint9"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="@dimen/dp45"
+                android:layout_height="@dimen/dp45"
                 android:layout_gravity="center"
                 android:background="@drawable/tile_hover"
                 android:textAllCaps="true"
@@ -313,8 +327,8 @@
 
             <Button
                 android:id="@+id/btnHint10"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="@dimen/dp45"
+                android:layout_height="@dimen/dp45"
                 android:layout_gravity="center"
                 android:background="@drawable/tile_hover"
                 android:textAllCaps="true"
@@ -322,8 +336,8 @@
 
             <Button
                 android:id="@+id/btnHint11"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="@dimen/dp45"
+                android:layout_height="@dimen/dp45"
                 android:layout_gravity="center"
                 android:background="@drawable/tile_hover"
                 android:textAllCaps="true"
@@ -331,8 +345,8 @@
 
             <Button
                 android:id="@+id/btnHint12"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="@dimen/dp45"
+                android:layout_height="@dimen/dp45"
                 android:layout_gravity="center"
                 android:background="@drawable/tile_hover"
                 android:textAllCaps="true"
@@ -340,8 +354,8 @@
 
             <Button
                 android:id="@+id/btnHint13"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="@dimen/dp45"
+                android:layout_height="@dimen/dp45"
                 android:layout_gravity="center"
                 android:background="@drawable/tile_hover"
                 android:textAllCaps="true"
@@ -349,8 +363,8 @@
 
             <Button
                 android:id="@+id/btnHint14"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="@dimen/dp45"
+                android:layout_height="@dimen/dp45"
                 android:layout_gravity="center"
                 android:background="@drawable/tile_hover"
                 android:textAllCaps="true"
@@ -358,8 +372,8 @@
 
             <Button
                 android:id="@+id/btnHint15"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="@dimen/dp45"
+                android:layout_height="@dimen/dp45"
                 android:layout_gravity="center"
                 android:background="@drawable/tile_hover"
                 android:textAllCaps="true"
@@ -367,8 +381,8 @@
 
             <Button
                 android:id="@+id/btnHint16"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="@dimen/dp45"
+                android:layout_height="@dimen/dp45"
                 android:layout_gravity="center"
                 android:background="@drawable/tile_hover"
                 android:textAllCaps="true"

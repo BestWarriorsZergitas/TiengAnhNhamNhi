@@ -3,12 +3,17 @@ package hoandeptraicompany.com.tienganhnhamnhi.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.media.Image;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,17 +26,30 @@ import hoandeptraicompany.com.tienganhnhamnhi.Database.QueryEnglisTable;
 import hoandeptraicompany.com.tienganhnhamnhi.ObjectClass.EnglishClass;
 import hoandeptraicompany.com.tienganhnhamnhi.R;
 
+import static android.R.attr.button;
 import static android.R.attr.data;
 import static android.R.attr.firstDayOfWeek;
 import static android.R.attr.focusable;
 import static android.R.attr.id;
+import static android.R.attr.logo;
 import static android.R.attr.queryActionMsg;
 import static android.R.attr.theme;
 import static android.R.attr.track;
 
 public class MainActivity extends AppCompatActivity {
+    public static final int REQUEST_CONFIRMACTIVIATY = 0;
+    public static final int RESULT_CONFIRMACTIVIATY = 1;
+
     private CardView cdOpenABox;
-    private CardView cdShare;
+    private TextView txtLevel;
+    private TextView txtCoint;
+    private ImageView btnOpenABox;
+    private ImageView btnShare;
+    private ImageView btnHelp;
+    private ImageView btnBack;
+    private int coin = 250;
+
+    //    private CardView cdShare;
     private TextView txtCoin;
     private TextView txtQuestion;
     private Button btnHint1, btnHint2, btnHint3, btnHint4, btnHint5, btnHint6, btnHint7, btnHint8, btnHint9, btnHint10, btnHint11, btnHint12, btnHint13, btnHint14, btnHint15, btnHint16;
@@ -41,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     private List<EnglishClass> listQuestion;
     private int level;
     private String answer = "";
+    private int indexQuestion;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +68,41 @@ public class MainActivity extends AppCompatActivity {
         initComps();
         addEvent();
         getListQuestion(this);
+        Log.d("checklevel", "oncreat");
         playGame();
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CONFIRMACTIVIATY) {
+            if (resultCode == RESULT_CONFIRMACTIVIATY) {
+                nextQuestion();
+            }
+        }
+    }
+
+    public void showConfirmActivity() {
+        Intent intent = new Intent(MainActivity.this, ConfirmActivity.class);
+        EnglishClass question = listQuestion.get(level);
+        intent.putExtra("question", question);
+        startActivityForResult(intent, REQUEST_CONFIRMACTIVIATY);
+    }
+
     private void playGame() {
-        SharedPreferences share = getSharedPreferences("state", level);
+
+
+        SharedPreferences share = getSharedPreferences("state", MODE_PRIVATE);
         level = share.getInt("level", 0);
+//        int indexQuestionFirs = ran.nextInt(listQuestion.size());
+//        indexQuestion = share.getInt("index", indexQuestionFirs);
+
+        Log.d("checklevel", "chayroi");
+        Log.d("checklevel", level + "");
+        txtLevel.setText("Level " + level);
+        coin = share.getInt("coin", 250);
+        txtCoin.setText(coin + " Coint");
         EnglishClass question = listQuestion.get(level);
         displayQuestion(question);
         handingAnswerBox(question);
@@ -75,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
             int index = random.nextInt(15);
             Button button = buttonHintMgr.get(index);
             if (button.getText() == null || button.getText().toString().trim().equals("")) {
-
                 button.setText(ans.charAt(i) + "");
                 i = i + 1;
 
@@ -126,16 +172,82 @@ public class MainActivity extends AppCompatActivity {
             });
         }
         for (int i = 0; i < 16; i++) {
+            final int finalI = i;
             buttonAnswerMgr.get(i).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Button button = (Button) v;
-                    int index = Integer.parseInt(((Button) v).getText().toString());
-                    buttonHintMgr.get(index).setText(button.getText() + "");
 
+                    if (!buttonAnswerMgr.get(finalI).getText().toString().trim().equals("") && buttonAnswerMgr.get(finalI).getText() != null) {
+                        int index = Integer.parseInt(button.getHint() + "");
+                        buttonHintMgr.get(index).setText(button.getText().toString());
+                        button.setText("");
+                        button.setHint("");
+
+                    }
                 }
             });
         }
+        btnOpenABox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (coin < 5) {
+                    Toast.makeText(MainActivity.this, "Bạn không đủ coin để mở ô", Toast.LENGTH_SHORT).show();
+                } else {
+                    openABox();
+                }
+            }
+        });
+        btnShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent share = new Intent(Intent.ACTION_SEND);
+                share.setType("image/jpeg");
+
+                share.putExtra(Intent.EXTRA_STREAM,
+                        takeScreenshot());
+
+                startActivity(Intent.createChooser(share, "Share Image"));
+
+            }
+        });
+    }
+
+    public Bitmap takeScreenshot() {
+        View rootView = findViewById(android.R.id.content).getRootView();
+        rootView.setDrawingCacheEnabled(true);
+        return rootView.getDrawingCache();
+    }
+
+    private void openABox() {
+        Log.d("kiemtrachay", "bomaychaynhe");
+        EnglishClass question = listQuestion.get(level);
+        int length = question.getVietnamese().length();
+        Random random = new Random();
+        int index = 0;
+        do {
+            index = random.nextInt(length);
+
+        } while (!buttonAnswerMgr.get(index).getText().toString().trim().equals(""));
+
+        String dapan = question.getVietnamese();
+        for (int i = 0; i < 16; i++) {
+            Button button = buttonHintMgr.get(i);
+            Log.d("checkresult", button.getText().toString().trim() + "-" + dapan.charAt(index));
+            if (button.getText().toString().trim().equals(dapan.charAt(index) + "")) {
+                buttonAnswerMgr.get(index).setText(button.getText().toString().trim());
+                buttonAnswerMgr.get(index).setHint(i + "");
+                button.setText("");
+                break;
+            }
+        }
+        answer = layCauTraLoi();
+        if (checkResult(answer)) {
+            Toast.makeText(MainActivity.this, "Bạn dã trả lời đúng", Toast.LENGTH_SHORT).show();
+            showConfirmActivity();
+
+        }
+
     }
 
     private void traLoi(View view, int i) {
@@ -143,13 +255,22 @@ public class MainActivity extends AppCompatActivity {
             Button button = buttonAnswerMgr.get(j);
             if (button.getText().toString().trim().equals("") || button.getText() == null) {
                 button.setText(((Button) view).getText().toString());
+
+                if (((Button) view).getText() != null && !((Button) view).getText().toString().equals("")) {
+                    button.setHint(i + "");
+                }
                 ((Button) view).setText("");
-                button.setHint(i+"");
-                answer = answer + button.getText().toString().trim();
-                Log.d("answer:", answer);
+//                answer = answer + button.getText().toString().trim();
+                answer = layCauTraLoi();
                 if (checkResult(answer)) {
                     Toast.makeText(MainActivity.this, "Bạn dã trả lời đúng", Toast.LENGTH_SHORT).show();
-                    nextQuestion();
+//                    nextQuestion();
+                    coin = coin + 10;
+                    SharedPreferences share = getSharedPreferences("state", MODE_PRIVATE);
+                    SharedPreferences.Editor edit = share.edit();
+                    edit.putInt("coin", coin);
+                    edit.commit();
+                    showConfirmActivity();
 
                 }
 
@@ -160,16 +281,27 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void nextQuestion() {
+    public void nextQuestion() {
+
+//        QueryEnglisTable queryEnglisTable = new QueryEnglisTable(this);
+////        queryEnglisTable.deleteRowQuestion(listQuestion.get(indexQuestion));
+//////        listQuestion.remove(indexQuestion);
+//////        Random ran = new Random();
+//////        indexQuestion = ran.nextInt(listQuestion.size());
         answer = "";
         level = level + 1;
+
         SharedPreferences share = getSharedPreferences("state", level);
         SharedPreferences.Editor edit = share.edit();
         edit.putInt("level", level);
+        txtLevel.setText("Level " + level);
+        txtCoin.setText(coin + " Coin");
+//        edit.putInt("index", indexQuestion);
         edit.commit();
         for (int i = 0; i < 16; i++) {
             buttonHintMgr.get(i).setText("");
             buttonAnswerMgr.get(i).setText("");
+            buttonAnswerMgr.get(i).setHint("");
             buttonAnswerMgr.get(i).setVisibility(View.VISIBLE);
         }
         playGame();
@@ -191,6 +323,16 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     }
+
+    public String layCauTraLoi() {
+        String cautraloi = "";
+        for (int i = 0; i < 16; i++) {
+            cautraloi = cautraloi + buttonAnswerMgr.get(i).getText().toString();
+        }
+        return cautraloi;
+
+    }
+
 
     private void initComps() {
         findView();
@@ -241,13 +383,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     private void findView() {
-        cdOpenABox = (CardView) findViewById(R.id.cdOpenABox);
-        cdShare = (CardView) findViewById(R.id.cdShare);
+        btnOpenABox = (ImageView) findViewById(R.id.btnOpenABox);
+        btnShare = (ImageView) findViewById(R.id.btnShare);
+        btnHelp = (ImageView) findViewById(R.id.btnHelp);
+        btnBack = (ImageView) findViewById(R.id.btnBack);
+        txtLevel = (TextView) findViewById(R.id.txtLevel);
         txtCoin = (TextView) findViewById(R.id.txtCoin);
         txtQuestion = (TextView) findViewById(R.id.txtQuestrion);
-
         btnHint1 = (Button) findViewById(R.id.btnHint1);
         btnHint2 = (Button) findViewById(R.id.btnHint2);
         btnHint3 = (Button) findViewById(R.id.btnHint3);
@@ -285,5 +428,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
+
+    }
 }
